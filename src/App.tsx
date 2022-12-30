@@ -1,16 +1,23 @@
-import { OrbitControls, View } from "@react-three/drei"
-import { Canvas, useFrame, useThree } from "@react-three/fiber"
-import { useLayoutEffect, useRef } from "react"
-import * as THREE from "three"
-import Track from "./Track"
+import { ScrollControls } from "@react-three/drei"
+import { Canvas } from "@react-three/fiber"
+import Sketch from "./Sketch"
 
 export default function App() {
-  const line = useRef()
   return (
     <div className='App'>
-      <Canvas>
-        <OrbitControls />
-        <Track ref={line} />
+      <Canvas
+        shadows
+        orthographic
+        camera={{
+          position: [0, 0, 50],
+          zoom: 100,
+        }}
+      >
+        <ambientLight intensity={0.2} />
+        <directionalLight intensity={2} position={[0, 20, 5]} castShadow />
+        <ScrollControls pages={10}>
+          <Sketch />
+        </ScrollControls>
       </Canvas>
     </div>
   )
